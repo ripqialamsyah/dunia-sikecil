@@ -1,0 +1,19 @@
+{
+  "name": "Dunia Kecil — Belajar & Bermain",
+  "short_name": "Dunia Kecil",
+  "description": "Game edukasi tenang dan menyenangkan untuk anak usia 1 tahunan: mengenal hewan, angka, huruf, warna, buah, dan kendaraan.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#dff4ff",
+  "theme_color": "#dff4ff",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

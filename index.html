@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#dff4ff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Dunia Kecil" />
+  <title>Dunia Kecil — Belajar &amp; Bermain</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-sky" aria-hidden="true">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="bg-hill"></div>
+  </div>
+
+  <div class="app-shell">
+    <!-- Minimal, calm header with Parent-Hold protection inside play mode -->
+    <header class="top-bar">
+      <div class="top-left">
+        <button id="btn-home" class="pill-btn icon-btn hold-target hidden" aria-label="Tahan untuk kembali ke Beranda" title="Tahan 1 detik untuk ke Beranda">
+          <svg class="hold-ring" viewBox="0 0 60 60" aria-hidden="true">
+            <circle class="hold-ring-track" cx="30" cy="30" r="26" />
+            <circle class="hold-ring-fill" cx="30" cy="30" r="26" />
+          </svg>
+          <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5L12 3l9 7.5" />
+            <path d="M5 9.5V20a1 1 0 0 0 1 1h4.5v-5.5h3V21H18a1 1 0 0 0 1-1V9.5" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="mode-switch" class="mode-switch hidden" role="tablist" aria-label="Mode Bermain">
+        <button id="btn-mode-explore" class="mode-pill hold-pill active" role="tab" aria-selected="true">
+          <span class="mode-emoji" aria-hidden="true">📖</span>
+          <span>Belajar</span>
+        </button>
+        <button id="btn-mode-quiz" class="mode-pill hold-pill" role="tab" aria-selected="false">
+          <span class="mode-emoji" aria-hidden="true">⭐</span>
+          <span>Cari Yuk</span>
+        </button>
+      </div>
+
+      <div class="top-right">
+        <button id="btn-fullscreen" class="pill-btn icon-btn hold-target" aria-label="Layar Penuh" title="Layar Penuh">
+          <svg class="hold-ring" viewBox="0 0 60 60" aria-hidden="true">
+            <circle class="hold-ring-track" cx="30" cy="30" r="26" />
+            <circle class="hold-ring-fill" cx="30" cy="30" r="26" />
+          </svg>
+          <svg id="icon-fs-enter" viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9" />
+            <polyline points="9 21 3 21 3 15" />
+            <line x1="21" y1="3" x2="14" y2="10" />
+            <line x1="3" y1="21" x2="10" y2="14" />
+          </svg>
+          <svg id="icon-fs-exit" viewBox="0 0 24 24" class="ui-icon hidden" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 14 10 14 10 20" />
+            <polyline points="20 10 14 10 14 4" />
+            <line x1="14" y1="10" x2="21" y2="3" />
+            <line x1="3" y1="21" x2="10" y2="14" />
+          </svg>
+        </button>
+
+        <button id="btn-sound" class="pill-btn icon-btn hold-target" aria-label="Suara Aktif" title="Suara">
+          <svg class="hold-ring" viewBox="0 0 60 60" aria-hidden="true">
+            <circle class="hold-ring-track" cx="30" cy="30" r="26" />
+            <circle class="hold-ring-fill" cx="30" cy="30" r="26" />
+          </svg>
+          <svg id="icon-sound-on" viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" opacity="0.2" />
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+            <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+          </svg>
+          <svg id="icon-sound-off" viewBox="0 0 24 24" class="ui-icon hidden" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <line x1="22" y1="9" x2="16" y2="15" />
+            <line x1="16" y1="9" x2="22" y2="15" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Gentle parent hint toast -->
+    <div id="parent-toast" class="parent-toast hidden" role="status" aria-live="polite">
+      Tahan tombol sebentar (Mode Orang Tua)
+    </div>
+
+    <!-- HOME SCREEN: 6 big friendly tiles, airy & calm -->
+    <main id="screen-home" class="screen screen-home">
+      <div class="home-hero">
+        <h1 class="app-title">Dunia Kecil</h1>
+        <p class="app-subtitle">Ketuk gambar untuk bermain &amp; belajar</p>
+      </div>
+
+      <div class="category-grid">
+        <button class="cat-card cat-animals" data-category="animals">
+          <div class="cat-art" id="home-art-animals"></div>
+          <span class="cat-label">Hewan</span>
+        </button>
+
+        <button class="cat-card cat-numbers" data-category="numbers">
+          <div class="cat-art" id="home-art-numbers"></div>
+          <span class="cat-label">Angka 123</span>
+        </button>
+
+        <button class="cat-card cat-letters" data-category="letters">
+          <div class="cat-art" id="home-art-letters"></div>
+          <span class="cat-label">Huruf ABC</span>
+        </button>
+
+        <button class="cat-card cat-shapes" data-category="colors_shapes">
+          <div class="cat-art" id="home-art-shapes"></div>
+          <span class="cat-label">Warna &amp; Bentuk</span>
+        </button>
+
+        <button class="cat-card cat-fruits" data-category="fruits">
+          <div class="cat-art" id="home-art-fruits"></div>
+          <span class="cat-label">Buah &amp; Makan</span>
+        </button>
+
+        <button class="cat-card cat-vehicles" data-category="vehicles">
+          <div class="cat-art" id="home-art-vehicles"></div>
+          <span class="cat-label">Kendaraan</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- PLAY SCREEN: Explore (1 big focused stage) or Quiz (2 big calm cards) -->
+    <main id="screen-play" class="screen screen-play hidden">
+      <!-- EXPLORE VIEW -->
+      <section id="view-explore" class="view-explore">
+        <button id="btn-prev" class="nav-arrow nav-prev" aria-label="Sebelumnya">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        <div class="stage-wrap">
+          <div id="explore-card" class="explore-card" role="button" tabindex="0" aria-label="Ketuk untuk mendengar">
+            <div class="tap-ripple" aria-hidden="true"></div>
+            <div id="explore-visual" class="explore-visual"></div>
+            <div id="explore-counters" class="explore-counters hidden"></div>
+            <div class="explore-text-wrap">
+              <div id="explore-title" class="explore-title">Kucing</div>
+              <div id="explore-subtitle" class="explore-subtitle">Meong!</div>
+            </div>
+          </div>
+          <div id="progress-dots" class="progress-dots" aria-hidden="true"></div>
+        </div>
+
+        <button id="btn-next" class="nav-arrow nav-next" aria-label="Berikutnya">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </section>
+
+      <!-- QUIZ VIEW (2 huge cards, zero stress, no penalty) -->
+      <section id="view-quiz" class="view-quiz hidden">
+        <button id="quiz-prompt-btn" class="quiz-prompt-btn" aria-label="Ulangi suara pertanyaan">
+          <span class="prompt-speaker" aria-hidden="true">🔊</span>
+          <span id="quiz-prompt-text">Mana Kucing?</span>
+        </button>
+
+        <div id="quiz-options" class="quiz-options">
+          <!-- 2 big cards populated by JS -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Particle & bubble burst layer for joyful positive feedback -->
+    <div id="sparkle-layer" class="sparkle-layer" aria-hidden="true"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="audio.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
